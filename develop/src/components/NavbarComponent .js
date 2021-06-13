@@ -1,8 +1,12 @@
-import React from 'react';
+import React, { useState , useEffect } from 'react';
 import Button from 'react-bootstrap/Button';
 import Navbar from 'react-bootstrap/Navbar';
+import Nav from 'react-bootstrap/NavLink';
+import Form from 'react-bootstrap/Form';
+import FormControl from 'react-bootstrap/FormControl';
 import Card from './Card';
 function NavbarComponent (props){
+  console.log(props);
   const [filter, setFilter] = useState([]);
   const [filteredEmployees , setFilteredEmployees] = useState([props.employees]);
   let employees = props.employees;
@@ -20,12 +24,12 @@ function NavbarComponent (props){
   
   })
   }
-  useEffect(() => {
-    if (!filter) {
-      return setFilteredEmployees(employees);
-    }
-    setFilteredEmployees(searchInArray(filter , employees , 'name'));
-  }, [filter]);
+  // useEffect(() => {
+  //   if (!filter) {
+  //     return setFilteredEmployees(employees);
+  //   }
+  //   setFilteredEmployees(searchInArray(filter , employees , 'name'));
+  // }, []);
                                           
 
 return(
@@ -45,16 +49,14 @@ return(
   <Button variant="outline-primary">Search</Button>
 </Form>
 </Navbar>
-<div>
+{/* <div>
   {filteredEmployees.map(employee => {
       return(<> 
         <Card employees={employee}/>
       </>)
-  }) 
-    
-  }
-  
-</div>
+  })   
+  }  
+</div> */}
 </>
 )
 }
