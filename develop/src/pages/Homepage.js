@@ -20,8 +20,9 @@ import Navbar from '../components/NavbarComponent ';
         }
     }, []);
 
-    return (
+    return ( 
         <>
+        {console.log(randomUsers)}
             <Navbar employees = {randomUsers}/>
         </>
     )

@@ -1,28 +1,32 @@
 import React from 'react';
 import Button from 'react-bootstrap/Button';
 import Navbar from 'react-bootstrap/Navbar';
-
+import Card from './Card';
 function NavbarComponent (props){
   const [filter, setFilter] = useState([]);
+  const [filteredEmployees , setFilteredEmployees] = useState([props.employees]);
+  let employees = props.employees;
 
+                                        //if array say which key ex 'name'  for name: 'Susie'
+  let searchInArray=(searchQuery, array, objectKey=null)=>{
+    return array.filter(d=>{
+        let data =objectKey? d[objectKey] : d //Incase If It's Array Of Objects.
+         let dataWords= typeof data=="string" && data?.split(" ")?.map(b=>b&&b.toLowerCase().trim()).filter(b=>b)
+        let searchWords = typeof searchQuery=="string"&&searchQuery?.split(" ").map(b=>b&&b.toLowerCase().trim()).filter(b=>b)
+  
+       let matchingWords = searchWords.filter(word=>dataWords.includes(word))
+  
+      return matchingWords.length
+  
+  })
+  }
   useEffect(() => {
     if (!filter) {
-      return;
+      return setFilteredEmployees(employees);
     }
-
-    API.searchTerms(search)
-      .then(res => {
-        if (res.data.length === 0) {
-          throw new Error("No results found.");
-        }
-        if (res.data.status === "error") {
-          throw new Error(res.data.message);
-        }
-        setTitle(res.data[1][0]);
-        setUrl(res.data[3][0]);
-      })
-      .catch(err => console.log(err));
-  }, [search]);
+    setFilteredEmployees(searchInArray(filter , employees , 'name'));
+  }, [filter]);
+                                          
 
 return(
 <>
@@ -37,10 +41,20 @@ return(
   <Nav.Link href="#pricing">Pricing</Nav.Link>
 </Nav>
 <Form inline>
-  <FormControl type="text" placeholder="Search" className="mr-sm-2" />
+  <FormControl type="text" placeholder="Search" className="mr-sm-2" onChange={event =>setFilter(event.target.value.trim())}/>
   <Button variant="outline-primary">Search</Button>
 </Form>
 </Navbar>
+<div>
+  {filteredEmployees.map(employee => {
+      return(<> 
+        <Card employees={employee}/>
+      </>)
+  }) 
+    
+  }
+  
+</div>
 </>
 )
 }
