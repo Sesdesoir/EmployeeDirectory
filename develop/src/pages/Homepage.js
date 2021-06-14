@@ -10,25 +10,18 @@ import axios from 'axios';
             return;
         }
         else {
-            axios.get('https://randomuser.me/api/').then(data=>{
-                setRandomUsers(data);
+            axios.get('https://randomuser.me/api/?results=10').then(data=>{
+                console.log("This is data: " + JSON.stringify(data.data.results));
+                const info = data.data.results;
+                setRandomUsers(info);
             }
 
-            );
-            // $.ajax({
-            //     url: ,
-            //     dataType: 'json',
-            //     success: function(data) {
-                    
-            //     }
-            //   });
-
+            ).catch(err => console.log(err));
         }
     }, []);
 
     return ( 
         <>
-        {console.log(randomUsers)}
             <NavbarComponent employees = {randomUsers}/>
         </>
     )
