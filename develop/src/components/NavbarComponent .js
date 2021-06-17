@@ -35,7 +35,6 @@ function NavbarComponent (props){
 
 return(
 <>
-{console.log(props.employees.cell)}
 <Navbar bg="light" variant="light">
 <Navbar.Brand href="#home">Navbar</Navbar.Brand>
 <Nav className="mr-auto">
@@ -49,11 +48,9 @@ return(
 </Form>
 </Navbar>
 <div>
-  {props.employees.map(employee => {
-      return(<> 
-        <Card employees={employee}/>
-      </>)
-  })   
+  {props.employees.map(employee => (
+     <Card employees={employee}/>     
+  ))   
   }  
 </div>
 </>
