@@ -10,8 +10,8 @@ import axios from 'axios';
             return;
         }
         else {
-            axios.get('https://randomuser.me/api/?results=1').then(data=>{
-                console.log("This is data: " + data);
+            axios.get('https://randomuser.me/api/?results=10').then(data=>{
+                //console.log("This is data: " + data);
                 console.dir(data.data.results);
                 const info = data.data.results;
                 setRandomUsers(info);
